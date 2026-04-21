@@ -13,6 +13,10 @@
 
 The data for this project is sourced from [Olympic Historical Dataset from Olympedia.org](https://www.kaggle.com/datasets/josephcheng123456/olympic-historical-dataset-from-olympediaorg) on Kaggle.
 
+## Diagram and Whiteboard
+
+[Excalidraw Diagram](https://excalidraw.com/#room=a80da5f3e1d8f795ee98,WHxZB9AY7j0H88N3n3TaNA)
+
 ## Notes
 ### What story are we trying to tell?
 The Evolution of the Summer Olympics(1984-2020)
