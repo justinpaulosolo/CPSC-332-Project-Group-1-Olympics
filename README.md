@@ -1058,11 +1058,11 @@ LIMIT 15;
 - [ ] Export both diagrams as images for the report
 
 #### Part B – Queries (25 pts)
-- [ ] Write 5+ queries using joins from multiple tables
-- [ ] Write 10+ queries using subqueries from multiple tables
-- [ ] Write remaining queries (20 total)
-- [ ] Test each query, verify results are sensible
-- [ ] Capture screenshots / output of each for the report
+- [x] Write 5+ queries using joins from multiple tables
+- [x] Write 10+ queries using subqueries from multiple tables
+- [x] Write remaining queries (20 total)
+- [x] Test each query, verify results are sensible
+- [x] Capture screenshots / output of each for the report
 
 #### Part B – Final Report (Word doc, APA, 12pt Times New Roman, double-spaced, 4+ pages)
 - [ ] Title page (team name, class, date, members)
@@ -1082,7 +1082,7 @@ LIMIT 15;
 - [ ] Reference page
 
 #### Presentation (~15 minutes)
-- [ ] Build slide deck
+- [x] Build slide deck
 - [ ] Decide who presents which section
 - [ ] Designate one person to bring laptop for live database demo
 - [ ] Rehearse
