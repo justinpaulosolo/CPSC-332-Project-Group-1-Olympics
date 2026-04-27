@@ -183,30 +183,28 @@ ORDER BY o.Year;
 
 -- This section moves beyond the top medal countries and asks whether Olympic success became more globally distributed.
 
--- Question 8: Which countries won their first medal during each Olympics?
+-- Question 8: How many countries won their first medal in each Olympic year?
 
 -- Purpose: Identify new countries entering the medal table over time.
 
 SELECT
-    o.Year,
-    c.Name AS country_name,
-    c.Code AS country_code,
-    COUNT(*) AS medals_that_year
-FROM Medal m
-JOIN Olympics o
-    ON m.OlympicID = o.OlympicID
-JOIN Country c
-    ON m.CountryCode = c.Code
-WHERE o.Year = (
-    SELECT MIN(o2.Year)
-    FROM Medal m2
-    JOIN Olympics o2
-        ON m2.OlympicID = o2.OlympicID
-    WHERE m2.CountryCode = m.CountryCode
-      AND o2.Season = 'Summer'
-)
-GROUP BY o.Year, c.Name, c.Code
-ORDER BY o.Year, medals_that_year DESC;
+    first_medal_year,
+    COUNT(*) AS first_time_medal_countries
+FROM (
+    SELECT
+        m.CountryCode,
+        MIN(o.Year) AS first_medal_year
+    FROM Medal m
+    JOIN Olympics o
+        ON m.OlympicID = o.OlympicID
+    WHERE o.Season = 'Summer'
+      AND o.Year BETWEEN 1984 AND 2020
+    GROUP BY m.CountryCode
+) first_medals
+WHERE first_medal_year > 1984
+GROUP BY first_medal_year
+ORDER BY first_medal_year;
+
 
 -- Question 9: How did medal share by continent change from 1984 to 2020?
 

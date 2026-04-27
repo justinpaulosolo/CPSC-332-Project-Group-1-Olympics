@@ -354,165 +354,41 @@ ORDER BY o.Year;
 
 This section moves beyond the top medal countries and asks whether Olympic success became more globally distributed.
 
-### Question 8: Which countries won their first medal during each Olympics?
+### Question 8: How many countries won their first medal in each Olympic year?
 
 Purpose: Identify new countries entering the medal table over time.
 
 ```sql
 SELECT
-    o.Year,
-    c.Name AS country_name,
-    c.Code AS country_code,
-    COUNT(*) AS medals_that_year
-FROM Medal m
-JOIN Olympics o
-    ON m.OlympicID = o.OlympicID
-JOIN Country c
-    ON m.CountryCode = c.Code
-WHERE o.Year = (
-    SELECT MIN(o2.Year)
-    FROM Medal m2
-    JOIN Olympics o2
-        ON m2.OlympicID = o2.OlympicID
-    WHERE m2.CountryCode = m.CountryCode
-      AND o2.Season = 'Summer'
-)
-GROUP BY o.Year, c.Name, c.Code
-ORDER BY o.Year, medals_that_year DESC;
+    first_medal_year,
+    COUNT(*) AS first_time_medal_countries
+FROM (
+    SELECT
+        m.CountryCode,
+        MIN(o.Year) AS first_medal_year
+    FROM Medal m
+    JOIN Olympics o
+        ON m.OlympicID = o.OlympicID
+    WHERE o.Season = 'Summer'
+      AND o.Year BETWEEN 1984 AND 2020
+    GROUP BY m.CountryCode
+) first_medals
+WHERE first_medal_year > 1984
+GROUP BY first_medal_year
+ORDER BY first_medal_year;
 ```
 
-| Year | country\_name | country\_code | medals\_that\_year |
-| :--- | :--- | :--- | :--- |
-| 1984 | United States | USA | 359 |
-| 1984 | Germany | DEU | 163 |
-| 1984 | Romania | ROM | 106 |
-| 1984 | Canada | CAN | 90 |
-| 1984 | Yugoslavia | YUG | 88 |
-| 1984 | China | CHN | 78 |
-| 1984 | United Kingdom | GBR | 76 |
-| 1984 | France | FRA | 68 |
-| 1984 | Italy | ITA | 64 |
-| 1984 | Australia | AUS | 55 |
-| 1984 | Japan | JPN | 49 |
-| 1984 | South Korea | KOR | 44 |
-| 1984 | Netherlands | NLD | 41 |
-| 1984 | Brazil | BRA | 37 |
-| 1984 | Sweden | SWE | 35 |
-| 1984 | New Zealand | NZL | 23 |
-| 1984 | Spain | ESP | 19 |
-| 1984 | Pakistan | PAK | 16 |
-| 1984 | Denmark | DNK | 13 |
-| 1984 | Switzerland | CHE | 13 |
-| 1984 | Finland | FIN | 12 |
-| 1984 | Jamaica | JAM | 9 |
-| 1984 | Nigeria | NGA | 6 |
-| 1984 | Mexico | MEX | 6 |
-| 1984 | Belgium | BEL | 5 |
-| 1984 | Norway | NOR | 4 |
-| 1984 | Austria | AUT | 3 |
-| 1984 | Kenya | KEN | 3 |
-| 1984 | Portugal | PRT | 3 |
-| 1984 | Turkey | TUR | 3 |
-| 1984 | Venezuela | VEN | 3 |
-| 1984 | Algeria | DZA | 2 |
-| 1984 | Greece | GRC | 2 |
-| 1984 | Morocco | MAR | 2 |
-| 1984 | Puerto Rico | PRI | 2 |
-| 1984 | Cameroon | CMR | 1 |
-| 1984 | Côte d’Ivoire | CIV | 1 |
-| 1984 | Dominican Republic | DOM | 1 |
-| 1984 | Colombia | COL | 1 |
-| 1984 | Taiwan | TWN | 1 |
-| 1984 | Egypt | EGY | 1 |
-| 1984 | Iceland | ISL | 1 |
-| 1984 | Ireland | IRL | 1 |
-| 1984 | Peru | PER | 1 |
-| 1984 | Syria | SYR | 1 |
-| 1984 | Thailand | THA | 1 |
-| 1984 | Zambia | ZMB | 1 |
-| 1988 | Russian Federation | RUS | 307 |
-| 1988 | Hungary | HUN | 44 |
-| 1988 | Bulgaria | BGR | 41 |
-| 1988 | Poland | POL | 21 |
-| 1988 | Argentina | ARG | 13 |
-| 1988 | Czech Republic | CZE | 10 |
-| 1988 | Indonesia | IDN | 3 |
-| 1988 | Djibouti | DJI | 1 |
-| 1988 | Costa Rica | CRI | 1 |
-| 1988 | Chile | CHL | 1 |
-| 1988 | Iran | IRN | 1 |
-| 1988 | Netherlands Antilles | ANT | 1 |
-| 1988 | Mongolia | MNG | 1 |
-| 1988 | Philippines | PHL | 1 |
-| 1988 | Senegal | SEN | 1 |
-| 1988 | Suriname | SUR | 1 |
-| 1988 | Virgin Islands, U.S. | VIR | 1 |
-| 1992 | Cuba | CUB | 71 |
-| 1992 | Ghana | GHA | 20 |
-| 1992 | Croatia | HRV | 15 |
-| 1992 | Lithuania | LTU | 13 |
-| 1992 | North Korea | PRK | 10 |
-| 1992 | Slovenia | SVN | 6 |
-| 1992 | Ethiopia | ETH | 3 |
-| 1992 | Estonia | EST | 3 |
-| 1992 | Latvia | LVA | 3 |
-| 1992 | South Africa | ZAF | 3 |
-| 1992 | Israel | ISR | 2 |
-| 1992 | Malaysia | MYS | 2 |
-| 1992 | Namibia | NAM | 2 |
-| 1992 | Qatar | QAT | 1 |
-| 1992 | Bahamas | BHS | 1 |
-| 1996 | Ukraine | UKR | 34 |
-| 1996 | Belarus | BLR | 23 |
-| 1996 | Kazakstan | KAZ | 11 |
-| 1996 | Moldova | MDA | 3 |
-| 1996 | Slovakia | SVK | 3 |
-| 1996 | Armenia | ARM | 2 |
-| 1996 | Georgia | GEO | 2 |
-| 1996 | Trinidad and Tobago | TTO | 2 |
-| 1996 | Uzbekistan | UZB | 2 |
-| 1996 | Azerbaijan | AZE | 1 |
-| 1996 | Burundi | BDI | 1 |
-| 1996 | Ecuador | ECU | 1 |
-| 1996 | Hong Kong | HKG | 1 |
-| 1996 | India | IND | 1 |
-| 1996 | Mozambique | MOZ | 1 |
-| 1996 | Tonga | TON | 1 |
-| 1996 | Tunisia | TUN | 1 |
-| 1996 | Uganda | UGA | 1 |
-| 2000 | Saudi Arabia | SAU | 2 |
-| 2000 | Barbados | BRB | 1 |
-| 2000 | Kuwait | KWT | 1 |
-| 2000 | Kyrgyzstan | KGZ | 1 |
-| 2000 | Macedonia | MKD | 1 |
-| 2000 | Sri Lanka | LKA | 1 |
-| 2000 | Vietnam | VNM | 1 |
-| 2000 | Uruguay | URY | 1 |
-| 2004 | Paraguay | PRY | 22 |
-| 2004 | Zimbabwe | ZWE | 3 |
-| 2004 | Eritrea | ERI | 1 |
-| 2004 | United Arab Emirates | ARE | 1 |
-| 2008 | Singapore | SGP | 3 |
-| 2008 | Tajikistan | TJK | 2 |
-| 2008 | Afghanistan | AFG | 1 |
-| 2008 | Mauritius | MUS | 1 |
-| 2008 | Panama | PAN | 1 |
-| 2008 | Samoa | WSM | 1 |
-| 2008 | Sudan | SDN | 1 |
-| 2008 | Togo | TGO | 1 |
-| 2012 | Bahrain | BHR | 1 |
-| 2012 | Botswana | BWA | 1 |
-| 2012 | Cyprus | CYP | 1 |
-| 2012 | Gabon | GAB | 1 |
-| 2012 | Grenada | GRD | 1 |
-| 2012 | Guatemala | GTM | 1 |
-| 2016 | Fiji Islands | FJI | 13 |
-| 2016 | Jordan | JOR | 1 |
-| 2016 | Niger | NER | 1 |
-| 2020 | San Marino | SMR | 4 |
-| 2020 | Burkina Faso | BFA | 1 |
-| 2020 | Bermuda | BMU | 1 |
-| 2020 | Turkmenistan | TKM | 1 |
+| first\_medal\_year | first\_time\_medal\_countries |
+| :--- | :--- |
+| 1988 | 17 |
+| 1992 | 15 |
+| 1996 | 18 |
+| 2000 | 8 |
+| 2004 | 4 |
+| 2008 | 8 |
+| 2012 | 6 |
+| 2016 | 3 |
+| 2020 | 4 |
 
 ### Question 9: How did medal share by continent change from 1984 to 2020?
 
