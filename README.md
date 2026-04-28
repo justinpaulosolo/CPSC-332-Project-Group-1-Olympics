@@ -574,6 +574,85 @@ GROUP BY gnp_group;
 | Above Average GNP | 29 | 15148 | 522.34 |
 | Below Average GNP | 100 | 4245 | 42.45 |
 
+
+### Question 12a: Which medal-winning countries have the largest capital cities?
+```sql
+SELECT
+    c.Name AS country_name,
+    cap.Name AS capital_city,
+    cap.Population AS capital_population,
+    COUNT(*) AS medal_count
+FROM Medal m
+JOIN Country c
+    ON m.CountryCode = c.Code
+JOIN City cap
+    ON c.Capital = cap.ID
+JOIN Olympics o
+    ON m.OlympicID = o.OlympicID
+WHERE o.Year BETWEEN 1984 AND 2020
+  AND o.Season = 'Summer'
+GROUP BY c.Name, cap.Name, cap.Population
+ORDER BY medal_count DESC
+LIMIT 15;
+```
+| country\_name | capital\_city | capital\_population | medal\_count |
+| :--- | :--- | :--- | :--- |
+| United States | Washington | 572059 | 2721 |
+| Russian Federation | Moscow | 8389200 | 1539 |
+| Germany | Berlin | 3386667 | 1515 |
+| Australia | Canberra | 322723 | 1099 |
+| China | Peking | 7472000 | 1072 |
+| United Kingdom | London | 7285000 | 819 |
+| France | Paris | 2125246 | 723 |
+| Italy | Roma | 2643581 | 643 |
+| Japan | Tokyo | 7980230 | 633 |
+| Netherlands | Amsterdam | 731200 | 606 |
+| South Korea | Seoul | 9981619 | 579 |
+| Canada | Ottawa | 335277 | 508 |
+| Spain | Madrid | 2879052 | 499 |
+| Brazil | Brasília | 1969868 | 496 |
+| Romania | Bucuresti | 2016131 | 402 |
+
+### Question 12b: Do countries with more recorded languages win more Olympic medals?
+```sql
+SELECT
+    c.Name AS country_name,
+    c.Code AS country_code,
+    COUNT(DISTINCT cl.Language) AS language_count,
+    COUNT(m.MedalID) AS medal_count
+FROM Country c
+JOIN CountryLanguage cl
+    ON c.Code = cl.CountryCode
+LEFT JOIN Medal m
+    ON c.Code = m.CountryCode
+LEFT JOIN Olympics o
+    ON m.OlympicID = o.OlympicID
+   AND o.Year BETWEEN 1984 AND 2020
+   AND o.Season = 'Summer'
+GROUP BY c.Name, c.Code
+HAVING medal_count > 0
+ORDER BY language_count DESC, medal_count DESC
+LIMIT 15;
+```
+
+| country\_name | country\_code | language\_count | medal\_count |
+| :--- | :--- | :--- | :--- |
+| United States | USA | 12 | 32652 |
+| Russian Federation | RUS | 12 | 18468 |
+| China | CHN | 12 | 12864 |
+| Canada | CAN | 12 | 6096 |
+| India | IND | 12 | 456 |
+| South Africa | ZAF | 11 | 649 |
+| Nigeria | NGA | 10 | 1180 |
+| Kenya | KEN | 10 | 940 |
+| Iran | IRN | 10 | 470 |
+| Philippines | PHL | 10 | 80 |
+| Uganda | UGA | 10 | 60 |
+| Mozambique | MOZ | 10 | 20 |
+| Sudan | SDN | 10 | 10 |
+| Indonesia | IDN | 9 | 441 |
+| Vietnam | VNM | 9 | 45 |
+
 ---
 
 ## 6. The Gender Revolution
