@@ -8,8 +8,8 @@ Main story: From 1984 to 2020, Olympic success changed because of shifting count
 
 | Speaker | Slides | Topic | Time |
 | :--- | :--- | :--- | :--- |
-| Speaker 1 | 1-3 | Intro, project goal, database design | 2 min |
-| Speaker 2 | 4-7 | relationships, requirements, superpowers, medal-count method | 4 min |
+| Speaker 1 | 1-3 | Intro, project goal, main story point | 2 min |
+| Speaker 2 | 4-7 | database design, relationships, requirements, superpowers, medal-count method | 4 min |
 | Speaker 3 | 8-10 | host advantage, global expansion, country/economy context | 4 min |
 | Speaker 4 | 11-12 | gender revolution, new sports, specialization | 3 min |
 | Speaker 5 | 13-15 | key findings, challenges, conclusion | 2 min |
