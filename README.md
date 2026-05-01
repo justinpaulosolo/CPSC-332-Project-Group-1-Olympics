@@ -1112,6 +1112,31 @@ LIMIT 15;
 
 ---
 
+# Conclusion
+
+Olympic power shifted, but stayed concentrated.
+The United States stayed number one in both 1984 and 2020. However, China, Japan, Australia, France, and the United Kingdom grew significantly. Japan had the largest increase in the README results, rising from 49 medal rows in 1984 to 131 in 2020.
+
+Medal counts depend on methodology.
+Raw athlete medal rows are not the same as official medal counts. For example, the United States had 2,721 athlete medal rows but 1,118 official-style medals. This means team events can make some countries look much stronger if the counting method is not explained.
+
+Hosting matters.
+Most host countries won more medals in their host year than in their average non-host years. Australia in 2000, China in 2008, the United Kingdom in 2012, and Japan in 2020 are strong examples.
+
+Olympic success expanded globally, but unevenly.
+New countries won medals throughout the period, and Asia, Oceania, South America, and Africa increased their shares. But Europe, North America, and Asia still held most medals by 2020.
+
+Wealth helps, but it is not the whole story.
+Above-average GNP countries won far more medals per country. But when adjusting for population or GNP, smaller countries like Bahamas, Jamaica, Fiji, Cuba, Kenya, and New Zealand stand out.
+
+Women’s success changed the medal story.
+The overall dataset still had more male than female medalists, but several countries had more female medal rows than male medal rows. China, Romania, Netherlands, Canada, Norway, and the United States are examples where women were a major driver of Olympic success.
+
+New sports created new paths to medals.
+Sports added after 1984 helped countries like the United States, China, Japan, South Korea, Australia, Cuba, and Fiji. Some smaller countries became highly specialized, like Fiji in Rugby Sevens and Jamaica in Athletics.
+
+From 1984 to 2020, Olympic success became broader, but not fully decentralized. The medal table still favored large, wealthy, and historically strong countries, but our database shows that success also depends on hosting, gender growth, new sports, team-event counting, and country specialization. In other words, Olympic dominance is not just about winning medals. It is about how the data is counted, connected, and interpreted.
+
 ## Key Design Decisions
 - IOC to ISO country code mapping
     - Our olympics dataset uses IOC codes, the given world db uses ISO codes
